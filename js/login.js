@@ -18,6 +18,7 @@ document.querySelector('form').addEventListener('submit', submitform);
 
 function submitform(e){
   e.preventDefault();
+  localStorage.setItem("userLogin",document.getElementById("floatingInput").value);
   sessionStorage.setItem('user',"user");
   window.location.href = "index.html";
 }

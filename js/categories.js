@@ -141,3 +141,10 @@ document.addEventListener("DOMContentLoaded", function(e){
         showCategoriesList();
     });
 });
+
+function userEmail(){
+    let email= document.getElementById("userEmail");
+    email.innerHTML= `<a class="nav-link"> ${localStorage.getItem("userLogin")}</a>`
+};
+
+userEmail();

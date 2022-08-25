@@ -16,3 +16,10 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
+function userEmail(){
+    let email= document.getElementById("userEmail");
+    email.innerHTML= `<a class="nav-link"> ${localStorage.getItem("userLogin")}</a>`
+};
+
+userEmail();
