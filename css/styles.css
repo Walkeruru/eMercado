@@ -188,3 +188,7 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+label[for="buscador"]{
+  margin-left: -35em;
+  margin-top: -1.4em;
+}

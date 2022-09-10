@@ -6,6 +6,7 @@ let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
+let busqueda = undefined;
 
 function sortCategories(criteria, array){
     let result = [];
@@ -35,17 +36,22 @@ function sortCategories(criteria, array){
     return result;
 }
 
+function redireccionar(producto){
+    localStorage.setItem("producto",producto);
+    window.location.href = "product-info.html";
+}
 
 function showCategoriesList(){
 
     let htmlContentToAppend = "";
     for(let i = 0; i < currentCategoriesArray.products.length; i++){
         let category = currentCategoriesArray.products[i];
+        console.log(category);
         if (((minCount == undefined) || (minCount != undefined && parseInt(category.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))){
-
-            htmlContentToAppend += `
-            <div onclick="setCatID(${category.id})" class="list-group-item list-group-item-action cursor-active">
+                if(busqueda==undefined ||category.name.toLowerCase().includes(busqueda) || category.description.toLowerCase().includes(busqueda))
+           { htmlContentToAppend += `
+            <div onclick="redireccionar(${category.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="${category.image}" alt="Auto ${category.id}" class="img-thumbnail">
@@ -59,7 +65,7 @@ function showCategoriesList(){
                     </div>
                 </div>
             </div>
-            `
+            `}
         }
     }
 
@@ -133,7 +139,10 @@ document.getElementById("rangeFilterCount").addEventListener("click", function()
 
     showCategoriesList();
 });
-
+document.getElementById("buscador").addEventListener("input",()=>{
+    busqueda = document.getElementById("buscador").value.toLowerCase();
+    showCategoriesList();
+})
 
 });
 
