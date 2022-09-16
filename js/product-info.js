@@ -95,11 +95,13 @@ function addComentario(){
         let listadecomentarios = document.querySelectorAll("div.border");
         let textarea = document.getElementsByTagName("textarea");
         let puntaje = document.getElementsByTagName("select");
+        let fecha = new Date();
+        fecha =`${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`;
         document.getElementById("contenedorComentarios").innerHTML+=`
         <div class="border">
         <div class="pt-2 ps-4 d-flex flex-row" id="comentario${listadecomentarios.length}">
             <p class="fw-bold">${localStorage.getItem("userLogin")}</p> 
-            <p>- ${new Date()} -</p>
+            <p>- ${fecha} -</p>
         </div>
         <p class="ps-4">${textarea[0].value}</p>
     </div>
