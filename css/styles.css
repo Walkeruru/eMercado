@@ -195,3 +195,6 @@ label[for="buscador"]{
 .pointer{
   cursor: pointer;
 }
+td>input{
+  width: 60px!important;
+}

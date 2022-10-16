@@ -129,12 +129,12 @@ function productosRelacionados(){
     <h6 class="fw-bold">Productos Relacionados</h6>
     <div class="row row-cols-1 row-cols-md-4 g-4 pointer">
         <div class=" pt-4" onclick="redireccionar(${datosRecibidos.relatedProducts[0].id})">
-        <img src="${datosRecibidos.relatedProducts[0].image}" class="card-img-top border" alt="...">
-        <p>${datosRecibidos.relatedProducts[0].name}</p>
+            <img src="${datosRecibidos.relatedProducts[0].image}" class="card-img-top border" alt="...">
+            <p>${datosRecibidos.relatedProducts[0].name}</p>
         </div>
         <div class="col pt-4" onclick="redireccionar(${datosRecibidos.relatedProducts[1].id})">
-        <img src="${datosRecibidos.relatedProducts[1].image}" class="card-img-top border" alt="...">
-        <p>${datosRecibidos.relatedProducts[1].name}</p>
+            <img src="${datosRecibidos.relatedProducts[1].image}" class="card-img-top border" alt="...">
+            <p>${datosRecibidos.relatedProducts[1].name}</p>
         </div>
     `
 }
