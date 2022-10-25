@@ -346,5 +346,6 @@ function display(){
   }else{
     let auto = [{id: 50924, currency: "USD", image: "img/prod50924_1.jpg", name: "Peugeot 208", unitCost: 15200}]
     localStorage.setItem("carrito",JSON.stringify(auto));
+    display();
   }
 }
