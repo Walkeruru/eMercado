@@ -1,6 +1,7 @@
 fetch(`https://japceibal.github.io/emercado-api/products/${localStorage.getItem("producto")}.json`)
     .then(response => response.json())
     .then(data =>{ datosRecibidos = data;
+        console.log(datosRecibidos);
         showProductInfo();
         showComentarios();
     })
@@ -11,7 +12,8 @@ fetch(`https://japceibal.github.io/emercado-api/products/${localStorage.getItem(
         <div class="row">
         <h1 class="py-2 mt-3 fw-bold col-lg-10 align-self-center">${datosRecibidos.name}</h1>
         </div>
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="row">
+        <div id="carouselExampleControls" class="carousel slide mt-lg-2 col-lg-6" data-bs-ride="carousel">
             <div class="carousel-inner rounded-3">
                 <div class="carousel-item active">
                     <img src="${datosRecibidos.images[0]}" class="d-block w-100" alt="...">
@@ -35,7 +37,8 @@ fetch(`https://japceibal.github.io/emercado-api/products/${localStorage.getItem(
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <hr>
+        <div class="col-lg-6">
+        <hr class="d-block d-md-none">
         <p class="fs-2">${datosRecibidos.currency} ${datosRecibidos.cost}</p>
         <div class="d-flex">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
@@ -55,6 +58,8 @@ fetch(`https://japceibal.github.io/emercado-api/products/${localStorage.getItem(
         <div class="row">
             <button class="btn btn-success shadow col-lg-12 col-11 ms-lg-0 ms-3 p-2 align-self-center mt-3" id="btnComprar" onclick="carritoBtn()">Comprar ahora</button>
             <button class="btn btn-primary shadow col-lg-12 col-11 p-2 ms-lg-0 ms-3 align-self-center mt-lg-2 mt-2" id="btnagregarCarrito" onclick="comprar()">Agregar al carrito</button>
+        </div>
+        </div>
         </div>
         <hr>
         <h2>Descripción</h2>
