@@ -1,26 +1,29 @@
 userEmail();
 getJSONData(CART_INFO_URL+'25801.json')
   .then(datos => {
-    console.log(datos);
     datos = datos.data.articles[0]
     let contenedor = document.getElementById('container');
     contenedor.innerHTML=`
-    <h2 class="text-center mt-4">Carrito de compras</h2>
+    <h2 class="text-center mt-4"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+  </svg>Carrito de compras</h2>
+    <hr>
     <h4>Articulos a comprar</h4>
     <table class="table">
   <thead>
     <tr>
       <th scope="col"> </th>
-      <th scope="col">Nombre</th>
+      <th scope="col" class="d-none d-md-table-cell">Nombre</th>
       <th scope="col">Costo</th>
       <th scope="col">Cantidad</th>
       <th scope="col">Subtotal</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody id="productoListado">
     <tr data-producto = "0">
       <th scope="row"><img src="${datos.image}" alt="Producto" width="70px"></th>
-      <td>${datos.name}</td>
+      <td class="d-none d-md-table-cell">${datos.name}</td>
       <td class="costo">${datos.currency+" "+datos.unitCost}</td>
       <td><input type="number" value="1" class="form-control cantidad" min="1"></td>
       <td class="fw-bold subtotal">${datos.currency+" "+datos.unitCost}</td>
@@ -66,7 +69,7 @@ Selecciona un tipo de envío
         Ingresa una calle
       </div>
   </div>
-  <div class="col-3">
+  <div class="col-3 col-lg-3 col-5">
   <label for="numero" class="form-label">Numero </label>
   <input type="text" class="form-control col" id="numero" required>
   <div class="invalid-feedback">
@@ -155,7 +158,7 @@ Selecciona un tipo de envío
             <label for="nroTarjeta" class="form-label">Número de tarjeta</label>
             <input type="text" class="form-control" id="nroTarjeta" required>
           </div>
-          <div class="col-4">
+          <div class="col-5">
             <label for="codTarjeta" class="form-label">Código de seg.</label>
             <input type="text" class="form-control" id="codTarjeta" required>
           </div>
@@ -312,14 +315,13 @@ function display(){
   
   if(localStorage.getItem("carrito")){
     let carrito = JSON.parse(localStorage.getItem("carrito"));
-    console.log(carrito);
     let listado = document.getElementById("productoListado");
     listado.innerHTML='';
     for(let producto of carrito){
       listado.innerHTML += `
     <tr data-producto =${carrito.indexOf(producto)+1}>
       <th scope="row"><img src="${producto.image}" alt="Producto" width="70px"></th>
-      <td>${producto.name}</td>
+      <td class="d-none d-md-table-cell">${producto.name}</td>
       <td class="costo">${producto.currency+" "+producto.unitCost}</td>
       <td><input type="number" value="1" class="form-control cantidad" min="1"></td>
       <td class="fw-bold subtotal">${producto.currency+" "+producto.unitCost}</td>
@@ -346,5 +348,6 @@ function display(){
   }else{
     let auto = [{id: 50924, currency: "USD", image: "img/prod50924_1.jpg", name: "Peugeot 208", unitCost: 15200}]
     localStorage.setItem("carrito",JSON.stringify(auto));
+    display();
   }
 }

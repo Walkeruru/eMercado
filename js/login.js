@@ -54,8 +54,9 @@ function submitform(e){
             const user = result.user;
             console.log(user);
             console.log(user.displayName);
-            localStorage.setItem("userLogin",user.displayName);
-            localStorage.setItem("imagen",user.photoURL)
+            localStorage.setItem("userLogin",user.email);
+            localStorage.setItem("imagen",user.photoURL);
+            localStorage.setItem("displayName", user.displayName);
             sessionStorage.setItem('user',"user");
             window.location.href = "index.html";
             }).catch((error) => {

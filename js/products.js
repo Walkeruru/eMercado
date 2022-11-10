@@ -2,13 +2,13 @@ const PRODUCTOS_URL = `https://japceibal.github.io/emercado-api/cats_products/${
 const ORDER_ASC_BY_PRECIO = "AZ";
 const ORDER_DESC_BY_PRECIO = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
-let currentCategoriesArray = [];
+let currentProductsArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 let busqueda = undefined;
 
-function sortCategories(criteria, array){
+function sortProducts(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_PRECIO)
     {
@@ -41,70 +41,69 @@ function redireccionar(producto){
     window.location.href = "product-info.html";
 }
 
-function showCategoriesList(){
+function showProductsList(){
 
     let htmlContentToAppend = "";
-    for(let i = 0; i < currentCategoriesArray.products.length; i++){
-        let category = currentCategoriesArray.products[i];
-        console.log(category);
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))){
-                if(busqueda==undefined ||category.name.toLowerCase().includes(busqueda) || category.description.toLowerCase().includes(busqueda))
+    for(let i = 0; i < currentProductsArray.products.length; i++){
+        let products = currentProductsArray.products[i];
+        if (((minCount == undefined) || (minCount != undefined && parseInt(products.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(products.cost) <= maxCount))){
+                if(busqueda==undefined ||products.name.toLowerCase().includes(busqueda) || products.description.toLowerCase().includes(busqueda))
            { htmlContentToAppend += `
-            <div onclick="redireccionar(${category.id})" class="list-group-item list-group-item-action cursor-active">
+            <div onclick="redireccionar(${products.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
-                        <img src="${category.image}" alt="Auto ${category.id}" class="img-thumbnail">
+                        <img src="${products.image}" alt="Auto ${products.id}" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">${category.name} - ${category.currency} ${category.cost}</h4>
-                            <small class="text-muted">${category.soldCount} vendidos</small>
+                            <h4 class="mb-1">${products.name} - ${products.currency} ${products.cost}</h4>
+                            <small class="text-muted">${products.soldCount} vendidos</small>
                         </div>
-                        <p class="mb-1">${category.description}</p>
+                        <p class="mb-1">${products.description}</p>
                     </div>
                 </div>
             </div>
             `}
         }
     }
-
-        document.getElementById("listado").innerHTML =` <h4 style="text-align:center; padding:1em">Productos 
-      <br>veras aqui todos los productos de la categoria ${currentCategoriesArray.catName}</h4>
-        ${htmlContentToAppend}`;
+        document.getElementById("productoTitulo").innerHTML= `
+        <h2>Productos</h2>
+      <p class="lead">Verás aquí todos los productos de la categoria ${currentProductsArray.catName}.</p>
+        `;
+        document.getElementById("listado").innerHTML =`${htmlContentToAppend}`;
 }
 
-function sortAndShowCategories(sortCriteria, categoriesArray){
+function sortAndShowProducts(sortCriteria, ProductsArray){
     currentSortCriteria = sortCriteria;
 
-    if(categoriesArray != undefined){
-        currentCategoriesArray = categoriesArray;
+    if(ProductsArray != undefined){
+        currentProductsArray = ProductsArray;
     }
 
-    currentCategoriesArray.products = sortCategories(currentSortCriteria, currentCategoriesArray.products);
+    currentProductsArray.products = sortProducts(currentSortCriteria, currentProductsArray.products);
 
     //Muestro las categorías ordenadas
-    showCategoriesList();
+    showProductsList();
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
    fetch(PRODUCTOS_URL)
     .then(response => response.json())
-  .then(data => {currentCategoriesArray = data;
-    console.log(currentCategoriesArray);
-    showCategoriesList();
+  .then(data => {currentProductsArray = data;
+    showProductsList();
     });
     
     document.getElementById("sortAsc").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_ASC_BY_PRECIO);
+        sortAndShowProducts(ORDER_ASC_BY_PRECIO);
     });
     
     document.getElementById("sortDesc").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_DESC_BY_PRECIO);
+        sortAndShowProducts(ORDER_DESC_BY_PRECIO);
     });
     
     document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_BY_PROD_COUNT);
+        sortAndShowProducts(ORDER_BY_PROD_COUNT);
     });
     
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
@@ -114,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         minCount = undefined;
         maxCount = undefined;
 
-        showCategoriesList();
+        showProductsList();
     });
     
 document.getElementById("rangeFilterCount").addEventListener("click", function(){
@@ -137,11 +136,11 @@ document.getElementById("rangeFilterCount").addEventListener("click", function()
         maxCount = undefined;
     }
 
-    showCategoriesList();
+    showProductsList();
 });
 document.getElementById("buscador").addEventListener("input",()=>{
     busqueda = document.getElementById("buscador").value.toLowerCase();
-    showCategoriesList();
+    showProductsList();
 });
 userEmail();
 });
