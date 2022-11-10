@@ -60,7 +60,7 @@ function userEmail(){
       email.innerHTML= `
       <div class="dropdown">
 <button class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-<img src="${localStorage.getItem("imagen") || "../img/img_perfil.png" }" id="perfilPic"><a> ${localStorage.getItem("displayName") || localStorage.getItem("userLogin") || ""}</a>
+<img src="${localStorage.getItem("imagen") || "./img/img_perfil.png" }" id="perfilPic"><a> ${localStorage.getItem("displayName") || localStorage.getItem("userLogin") || ""}</a>
 </button>
 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
   <li class="dropdown-item" onclick=redireccionarPagina("cart.html")> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">

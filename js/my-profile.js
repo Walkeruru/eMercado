@@ -7,7 +7,7 @@ if(sessionStorage.getItem("user")!=="user"){
 document.getElementById("perfil").innerHTML = `
         <div class="row">
             <h2 class="py-4 col-md-10 col-8  align-self-center">Perfil</h2>
-            <img class="col-2 mt-2 align-self-center" src="${localStorage.getItem("imagen") || "../img/img_perfil.png"}" alt="imagen de perfil predeterminada" id="fotoPerfil">
+            <img class="col-2 mt-2 align-self-center" src="${localStorage.getItem("imagen") || "./img/img_perfil.png"}" alt="imagen de perfil predeterminada" id="fotoPerfil">
         </div>
         <hr>
         <div id="alert"></div>
