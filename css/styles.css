@@ -209,18 +209,31 @@ a.custom-card:hover {
 .pointer{
   cursor: pointer;
 }
+
 td>input{
   width: 60px!important;
 }
+
 #pagoNoSeleccionado{
   width: 100%;
   margin-top: 0.25rem;
   font-size: .875em;
   color: #dc3545;
 }
+
 #perfilPic{
   width:25px;
   border-radius: 15rem;
+}
+
+.cantidadVendidos{
+  background: #d7d2d266;
+  border-radius: 0.8em;
+}
+.cantidadVendidos>p{
+  padding: 0.6em;
+  font-weight: 600;
+  margin-left: 1em;
 }
 /* boton de google estilo */
 .login-with-google-btn {
