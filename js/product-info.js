@@ -1,14 +1,13 @@
-fetch(`https://japceibal.github.io/emercado-api/products/${localStorage.getItem("producto")}.json`)
-    .then(response => response.json())
-    .then(data =>{ datosRecibidos = data;
-        console.log(datosRecibidos);
+getJSONData(PRODUCT_INFO_URL + `${localStorage.getItem("producto")}.json`)
+    .then(data =>{
+        datosRecibidos = data.data;
         showProductInfo();
         showComentarios();
-    })
+    });
 
-    function showProductInfo(){
-        let contenedor = document.getElementById("container");
-        contenedor.innerHTML =`
+function showProductInfo(){
+    let contenedor = document.getElementById("container");
+    contenedor.innerHTML =`
         <div class="row">
         <h1 class="py-2 mt-3 fw-bold col-lg-10 align-self-center">${datosRecibidos.name}</h1>
         </div>
@@ -113,7 +112,6 @@ function comprar(){
         name:datosRecibidos.name,
         unitCost:datosRecibidos.cost
     };
-    console.log(produtoCarrito);
     if(localStorage.getItem("carrito")){
         let carrito = JSON.parse(localStorage.getItem("carrito"));
         carrito.push(produtoCarrito);
@@ -126,10 +124,9 @@ function comprar(){
 }
 function showComentarios(){
         let contenedor = document.getElementById("container");
-        fetch(`https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("producto")}.json`)
-            .then(response => response.json())
+        getJSONData(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("producto")}.json`)
             .then(data =>{
-                comentarios = data
+              let comentarios = data.data;
                 contenedor.innerHTML +=`
                 <hr>
         <h5 class="pt-4">Comentarios</h5>`
@@ -188,11 +185,11 @@ function addComentario(){
         fecha =`${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`;
         document.getElementById("contenedorComentarios").innerHTML+=`
         <div class="border">
-        <div class="pt-2 ps-4 d-flex flex-row" id="comentario${listadecomentarios.length}">
-            <p class="fw-bold">${localStorage.getItem("userLogin")}</p> 
-            <p>- ${fecha} -</p>
+        <div class="pt-2 ps-2 d-flex flex-row" id="comentario${listadecomentarios.length}">
+            <p class="fw-bold">${ localStorage.getItem("displayName") || localStorage.getItem("userLogin") }</p> 
+            <p class="me-2">-${ fecha }</p>
         </div>
-        <p class="ps-4">${textarea[0].value}</p>
+        <p class="ps-2">${ textarea[0].value }</p>
     </div>
         `;
         let i = document.querySelectorAll("div.border").length-1;
@@ -207,26 +204,26 @@ function productosRelacionados(){
     <hr>
     <h6 class="fw-bold">Productos Relacionados</h6>
     <div class="row row-cols-md-4 g-4 d-none d-md-flex">
-        <div class="col pt-4 pointer" onclick="redireccionar(${datosRecibidos.relatedProducts[0].id})">
-            <img src="${datosRecibidos.relatedProducts[0].image}" class="card-img-top border" alt="...">
-            <p>${datosRecibidos.relatedProducts[0].name}</p>
+        <div class="col pt-4 pointer" onclick="redireccionar(${ datosRecibidos.relatedProducts[0].id })">
+            <img src="${ datosRecibidos.relatedProducts[0].image }" class="card-img-top border" alt="...">
+            <p>${ datosRecibidos.relatedProducts[0].name }</p>
         </div>
-        <div class="col pt-4 pointer" onclick="redireccionar(${datosRecibidos.relatedProducts[1].id})">
-            <img src="${datosRecibidos.relatedProducts[1].image}" class="card-img-top border" alt="...">
-            <p>${datosRecibidos.relatedProducts[1].name}</p>
+        <div class="col pt-4 pointer" onclick="redireccionar(${ datosRecibidos.relatedProducts[1].id })">
+            <img src="${ datosRecibidos.relatedProducts[1].image }" class="card-img-top border" alt="...">
+            <p>${ datosRecibidos.relatedProducts[1].name }</p>
         </div>
     </div>
     <!-----Carousel para celulares ----!>
     <div class="row d-block d-md-none">
         <div id="carouselProductos" class="carousel slide col-lg-4" data-bs-ride="carousel">
             <div class="carousel-inner pointer">
-                <div class="carousel-item active" onclick="redireccionar(${datosRecibidos.relatedProducts[0].id})">
-                    <img src="${datosRecibidos.relatedProducts[0].image}" class="card-img-top border" alt="...">
-                    <p>${datosRecibidos.relatedProducts[0].name}</p>
+                <div class="carousel-item active" onclick="redireccionar(${ datosRecibidos.relatedProducts[0].id })">
+                    <img src="${ datosRecibidos.relatedProducts[0].image }" class="card-img-top border" alt="...">
+                    <p>${ datosRecibidos.relatedProducts[0].name }</p>
                 </div>
-                <div class="carousel-item" onclick="redireccionar(${datosRecibidos.relatedProducts[1].id})">
-                    <img src="${datosRecibidos.relatedProducts[1].image}" class="card-img-top border" alt="...">
-                    <p>${datosRecibidos.relatedProducts[1].name}</p>
+                <div class="carousel-item" onclick="redireccionar(${ datosRecibidos.relatedProducts[1].id })">
+                    <img src="${ datosRecibidos.relatedProducts[1].image }" class="card-img-top border" alt="...">
+                    <p>${ datosRecibidos.relatedProducts[1].name }</p>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

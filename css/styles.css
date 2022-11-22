@@ -225,6 +225,10 @@ td>input{
   width:25px;
   border-radius: 15rem;
 }
+#dropdownMenuButton2{
+  background: #212529;
+  border: none;
+}
 
 .cantidadVendidos{
   background: #d7d2d266;

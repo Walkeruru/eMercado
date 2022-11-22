@@ -1,4 +1,3 @@
-const PRODUCTOS_URL = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`;
 const ORDER_ASC_BY_PRECIO = "AZ";
 const ORDER_DESC_BY_PRECIO = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
@@ -42,7 +41,6 @@ function redireccionar(producto){
 }
 
 function showProductsList(){
-
     let htmlContentToAppend = "";
     for(let i = 0; i < currentProductsArray.products.length; i++){
         let products = currentProductsArray.products[i];
@@ -67,11 +65,11 @@ function showProductsList(){
             `}
         }
     }
-        document.getElementById("productoTitulo").innerHTML= `
+    document.getElementById("productoTitulo").innerHTML= `
         <h2>Productos</h2>
       <p class="lead">Verás aquí todos los productos de la categoria ${currentProductsArray.catName}.</p>
         `;
-        document.getElementById("listado").innerHTML =`${htmlContentToAppend}`;
+    document.getElementById("listado").innerHTML =`${htmlContentToAppend}`;
 }
 
 function sortAndShowProducts(sortCriteria, ProductsArray){
@@ -88,10 +86,10 @@ function sortAndShowProducts(sortCriteria, ProductsArray){
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
-   fetch(PRODUCTOS_URL)
-    .then(response => response.json())
-  .then(data => {currentProductsArray = data;
-    showProductsList();
+    getJSONData(PRODUCTS_URL + `${localStorage.getItem("catID")}.json`)
+        .then(data => {
+            currentProductsArray = data.data;
+            showProductsList();
     });
     
     document.getElementById("sortAsc").addEventListener("click", function(){
